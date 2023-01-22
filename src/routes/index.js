@@ -5,6 +5,7 @@ const { Router } = require('express')
 const usersRouter = require('./users.routes')
 const notesRouter = require('./notes.routes')
 const tagsRouter = require('./tags.routes')
+const sessionsRoutes = require('./sessions.routes')
 
 
 /* Constante para rodar o Router*/
@@ -13,6 +14,7 @@ const routes = Router()
 /* toda vez que for usado /users irá direcionar para o usersRouter*/
 routes.use('/users', usersRouter)
 routes.use('/anime_notes', notesRouter)
-routes.use('/anime_tags', notesRouter)
+routes.use('/anime_tags', tagsRouter)
+routes.use('/sessions', sessionsRoutes)
 
 module.exports = routes

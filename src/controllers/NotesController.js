@@ -2,13 +2,11 @@
 const { response } = require('express');
 const knex = require('../database/knex');
 
-/**
- * Classe 
- */
+/** * Classe  */
 class NotesController {
     async create(request, response) {
         const {title, description, rate, tags} = request.body
-        const {user_id} = request.params
+        const user_id = request.user_id
         
         const anime_notes_id = await knex('anime_notes').insert({title, description,rate,user_id});
         
@@ -23,7 +21,7 @@ class NotesController {
 
         await knex('anime_tags').insert(tagsInsert);
 
-        response.json()
+        return response.json()
     }
 
     async show(request, response) {
@@ -43,7 +41,8 @@ class NotesController {
     }
 
     async index(request, response){
-        const {user_id, title,tags} = request.query
+        const {title,tags} = request.query
+        const user_id = request.user.id
 
         let notes
         if(tags){
