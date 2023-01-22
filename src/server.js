@@ -1,6 +1,7 @@
 /* Importando o Async eroor no express*/
 require('express-async-errors')
 const AppError = require('./utils/AppError')
+const uploadConfig = require('./configs/upload')
 
 /* Rodar o banco de dados*/
 const migrationsRun = require('./database/sqlite/migrations')
@@ -18,6 +19,7 @@ app.use(express.json())
 
 /* Inicializando o routes*/
 app.use(routes)
+app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER))
 
 /* Capturar o erro*/
 app.use(( error, request, response, next) =>{
