@@ -7,6 +7,9 @@ const uploadConfig = require('./configs/upload')
 const migrationsRun = require('./database/sqlite/migrations')
 migrationsRun()
 
+/*importando o cors*/
+const cors = require('cors')
+
 /* Importando o express*/
 const express = require('express')
 
@@ -15,6 +18,7 @@ const routes = require('./routes')
 
 /* Inicializando o express*/
 const app = express()
+app.use(cors())
 app.use(express.json()) 
 
 /* Inicializando o routes*/

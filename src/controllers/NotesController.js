@@ -8,7 +8,7 @@ class NotesController {
         const {title, description, rate, tags} = request.body
         const user_id = request.user_id
         
-        const anime_notes_id = await knex('anime_notes').insert({title, description,rate,user_id});
+        const [anime_notes_id] = await knex('anime_notes').insert({title, description,rate,user_id});
         
 
         const tagsInsert = tags.map( name => {
