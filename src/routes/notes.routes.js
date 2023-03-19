@@ -1,21 +1,17 @@
-/* Importar o Router para o express*/
-const { Router } = require('express')
-/* Importar o controller*/
-const NotesController = require('../controllers/NotesController')
-const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
+const { Router } = require("express");
+const { route } = require("express/lib/router");
 
-/* Constante para rodar o Router*/
-const notesRoutes = Router()
+const routes = Router();
+const NotesControllers = require("../controllers/NotesControllers");
+const notesControllers = new NotesControllers();
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
-/* Nova instancia */
-const notesController = new NotesController()
+routes.use(ensureAuthenticated);
+routes
+  .post("/", notesControllers.create)
+  .put("/:id", notesControllers.update)
+  .delete("/:id", notesControllers.delete)
+  .get("/:id", notesControllers.show)
+  .get("/", notesControllers.index);
 
-notesRoutes.use(ensureAuthenticated)
-
-notesRoutes.get('/',notesController.index)
-notesRoutes.post('/',notesController.create)
-notesRoutes.get('/:id',notesController.show)
-notesRoutes.delete('/:id',notesController.delete)
-
-/* exportar*/
-module.exports = notesRoutes
+module.exports = routes;

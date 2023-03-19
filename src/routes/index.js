@@ -1,20 +1,13 @@
-/* Importar o Router para o express*/
-const { Router } = require('express')
+const { Router } = require("express");
 
-/*reunir todas rotas da aplicação*/
-const usersRouter = require('./users.routes')
-const notesRouter = require('./notes.routes')
-const tagsRouter = require('./tags.routes')
-const sessionsRoutes = require('./sessions.routes')
+const usersRoutes = require("./users.routes");
+const notesRoutes = require("./notes.routes");
+const sessionsRoutes = require("./sessions.routes");
 
+const routes = Router();
 
-/* Constante para rodar o Router*/
-const routes = Router()
+routes.use("/users", usersRoutes);
+routes.use("/notes", notesRoutes);
+routes.use("/sessions", sessionsRoutes);
 
-/* toda vez que for usado /users irá direcionar para o usersRouter*/
-routes.use('/users', usersRouter)
-routes.use('/anime_notes', notesRouter)
-routes.use('/anime_tags', tagsRouter)
-routes.use('/sessions', sessionsRoutes)
-
-module.exports = routes
+module.exports = routes;

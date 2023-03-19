@@ -1,12 +1,11 @@
-/* Class para controlar as mensagens de erros*/
-class AppError{
-    message
-    statusCode
+class AppError {
+    statusCode;
+    message;
 
-    constructor(message, statusCode = 400){
-            this.message = message
-            this.statusCode = statusCode
+    constructor(message, statusCode = 400) {
+        this.message = message;
+        this.statusCode = statusCode;
     }
 }
 
-module.exports = AppError
+module.exports = AppError;

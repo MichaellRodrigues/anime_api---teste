@@ -1,24 +1,25 @@
-/* Importar o Router para o express*/
-const { Router } = require('express')
-const multer = require('multer')
-const uploadConfig = require('../configs/upload')
+const { Router } = require("express");
+const routes = Router();
 
-/* Importar o controller*/
-const UsersController = require('../controllers/UsersController')
-const UserAvatarController = require('../controllers/UserAvatarController')
-const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
+const UserControllers = require("../controllers/UsersControllers");
+const usersControllers = new UserControllers();
+const UsersAvatarController = require("../controllers/UsersAvatarController");
+const usersAvatarController = new UsersAvatarController();
 
-/* Constante para rodar o Router*/
-const usersRoutes = Router()
-const upload = multer(uploadConfig.MULTER)
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
-/* Nova instancia */
-const usersController = new UsersController()
-const userAvatarController = new UserAvatarController()
+const multer = require("multer");
+const uploadConfigs = require("../configs/upload");
+const upload = multer(uploadConfigs.MULTER);
 
-usersRoutes.post('/',usersController.create)
-usersRoutes.put('/', ensureAuthenticated, usersController.update)
-usersRoutes.patch('/avatar', ensureAuthenticated, upload.single("avatar"), userAvatarController.update)
+routes
+  .post("/", usersControllers.create)
+  .put("/", ensureAuthenticated, usersControllers.update)
+  .patch(
+    "/avatar",
+    ensureAuthenticated,
+    upload.single("avatar"),
+    usersAvatarController.update
+  );
 
-/* exportar*/
-module.exports = usersRoutes
+module.exports = routes;
